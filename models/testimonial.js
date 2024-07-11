@@ -1,14 +1,20 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const testimonialSchema = new mongoose.Schema({
+const TestimonialSchema = new Schema({
   user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  userEmail: {
     type: String,
-    required: true
+    required: true,
   },
   message: {
     type: String,
-    required: true
-  }
-}, { timestamps: true });
+    required: true,
+  },
+});
 
-module.exports = mongoose.model('Testimonial', testimonialSchema);
+module.exports = mongoose.model('Testimonial', TestimonialSchema);

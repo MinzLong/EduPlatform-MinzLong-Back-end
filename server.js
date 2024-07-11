@@ -18,6 +18,8 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/testimonials', require('./routes/testimonials'));
+app.use('/api/userCourses', require('./routes/userCourses'));
+app.use('/api/exam', require('./routes/exam'));
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

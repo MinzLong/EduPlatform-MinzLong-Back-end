@@ -5,7 +5,7 @@ const Testimonial = require('../models/testimonial');
 // Get all testimonials
 router.get('/', async (req, res) => {
   try {
-    const testimonials = await Testimonial.find();
+    const testimonials = await Testimonial.find().populate('user', 'email');
     res.json(testimonials);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const testimonial = new Testimonial({
     user: req.body.user,
+    userEmail: req.body.userEmail,
     message: req.body.message
   });
 
@@ -47,17 +48,13 @@ router.patch('/:id', async (req, res) => {
 // Delete a testimonial
 router.delete('/:id', async (req, res) => {
   try {
-    console.log(`Attempting to delete testimonial with ID: ${req.params.id}`);
     const result = await Testimonial.findByIdAndDelete(req.params.id);
     if (!result) {
-      console.log('Testimonial not found');
       return res.status(404).json({ message: 'Testimonial not found' });
     }
 
-    console.log('Testimonial deleted successfully');
     res.json({ message: 'Testimonial deleted' });
   } catch (err) {
-    console.error(`Error deleting testimonial: ${err.message}`);
     res.status(500).json({ message: err.message });
   }
 });
