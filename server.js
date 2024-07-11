@@ -21,13 +21,6 @@ app.use('/api/testimonials', require('./routes/testimonials'));
 app.use('/api/userCourses', require('./routes/userCourses'));
 app.use('/api/exam', require('./routes/exam'));
 
-// Serve static files from the Vue app
-app.use(express.static(path.join(__dirname, 'dist')));
-
-// The "catchall" handler: for any request that doesn't match one above, send back index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
